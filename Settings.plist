@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Title</key>
+		<string>Profile Page Items</string>
+		<key>Type</key>
+		<string>Group</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>enableProfile</string>
+		<key>Title</key>
+		<string>Enable Profile Extension</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>enableWinChatty</string>
+		<key>Title</key>
+		<string>Enable WinChatty Comment Replacement Extension</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>Title</key>
+		<string>Comment Settings</string>
+		<key>Type</key>
+		<string>Group</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>enableTag</string>
+		<key>Title</key>
+		<string>Enable Taglol Extension</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>enableCommentTags</string>
+		<key>Title</key>
+		<string>Enable Comment Tags</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+</array>
+</plist>

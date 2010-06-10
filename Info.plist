@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>DianeOfTheMoon</string>
+	<key>CFBundleDisplayName</key>
+	<string>Shackfari</string>
+	<key>CFBundleIdentifier</key>
+	<string>nws.shacknews.shackfari</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>Chrome</key>
+	<dict>
+		<key>Global Page</key>
+		<string>global.html</string>
+	</dict>
+	<key>Content</key>
+	<dict>
+		<key>Blacklist</key>
+		<array>
+			<string>http://*.shacknews.com/frame_laryn.x</string>
+		</array>
+		<key>Scripts</key>
+		<dict>
+			<key>End</key>
+			<array>
+				<string>injections/base_extension.js</string>
+				<string>injections/profile_extension.js</string>
+				<string>injections/tag_extension.js</string>
+				<string>injections/comment_tag_extension.js</string>
+			</array>
+			<key>Start</key>
+			<array>
+				<string>jquery-1.4.2.min.js</string>
+			</array>
+		</dict>
+		<key>Stylesheets</key>
+		<array>
+			<string>shackfari.css</string>
+			<string>crazy.css</string>
+		</array>
+	</dict>
+	<key>Description</key>
+	<string>It gets you extensions!</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Allowed Domains</key>
+			<array>
+				<string>*.shacknews.com</string>
+				<string>*.lmnopc.com</string>
+			</array>
+			<key>Level</key>
+			<string>Some</string>
+		</dict>
+	</dict>
+	<key>Website</key>
+	<string>http://www.shacknews.com</string>
+</dict>
+</plist>

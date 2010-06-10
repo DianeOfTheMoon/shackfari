@@ -1,0 +1,54 @@
+#shack_comment_colors {
+}
+
+#shack_comment_styles {
+}
+
+#shack_comment_tags {
+	border: 2px solid #81a5bd;
+	background: #000;
+	-webkit-box-shadow: 0px 0px 4px #81a5bd;
+}
+
+#shack_comment_tags, #frm_body, div.reply a, div.fullpost, div.inlinereply {
+	-webkit-border-radius: 4px;
+}
+
+div.inlinereply {
+	-webkit-border-top-left-radius: 0px;
+	-webkit-border-top-right-radius: 0px;
+}
+
+div.fullpost.replying {
+	-webkit-border-bottom-left-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+}
+
+#shack_comment_tags h4 {
+	text-align: center;
+}
+
+#shack_comment_tags dl {
+	width: 120px;
+	display: inline-block;
+}
+
+#shack_comment_tags dt, #shack_comment_tags dd {
+	height: 25px;
+	margin: 0px !important;
+	display: inline-block;
+}
+
+#shack_comment_tags dt {
+	font-weight: normal !important;
+	width: 70px;
+	overflow: hidden;
+}
+
+#shack_comment_tags dt span {
+	display: inline !important;
+}
+
+#shack_comment_tags dd {
+	width: 50px;
+}

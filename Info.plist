@@ -13,7 +13,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>8</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
@@ -61,6 +61,8 @@
 			<string>Some</string>
 		</dict>
 	</dict>
+	<key>Update Manifest URL</key>
+	<string>http://shackfari.googlecode.com/svn/trunk/Versions.plist</string>
 	<key>Website</key>
 	<string>http://www.shacknews.com</string>
 </dict>

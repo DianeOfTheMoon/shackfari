@@ -97,7 +97,7 @@ NewPostRootManager.prototype.reloaded = function() {
 		}
 		
 		//Make sure to unset our newness when clicked!
-		$(this).bind("click.new_post", function(event) {
+		$(this).find("span.oneline_body").bind("click.new_post", function(event) {
 			$(this).parents("li.shack_new_post, li.shack_user_reply").andSelf().removeClass("shack_new_post shack_user_reply").unbind("click.new_post");
 		});
 	});

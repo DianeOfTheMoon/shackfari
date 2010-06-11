@@ -23,12 +23,15 @@ ShacknewsExtension.prototype.extendShacknews = function(allPages) {
 
 ShacknewsExtension.prototype.checkExtended = function(eventMessage) {
 	var messageName = eventMessage.name;
-	
+	var curExtension = this;
 	if ("canExtendShacknews" + this.extension != messageName) {
 		return;
 	}
-		
-	this.extended(eventMessage);
+	
+	
+	$(document).ready(function() {
+		curExtension.extended(eventMessage);
+	});
 }
 
 ShacknewsExtension.prototype.getUsername = function() {

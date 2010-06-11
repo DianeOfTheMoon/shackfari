@@ -1,13 +1,17 @@
 #shack_comment_colors {
+	border-right: 1px dashed #aeaf9b;
 }
 
 #shack_comment_styles {
+	margin-left: 7px;
 }
 
 #shack_comment_tags {
-	border: 2px solid #81a5bd;
+	border: 2px solid #5F93C6;
 	background: #000;
-	-webkit-box-shadow: 0px 0px 4px #81a5bd;
+	-webkit-box-shadow: 0px 0px 4px #4D81B2;
+	margin-top: 33px;
+	height: 225px;
 }
 
 #shack_comment_tags, #frm_body, div.reply a, div.fullpost, div.inlinereply {
@@ -31,6 +35,8 @@ div.fullpost.replying {
 #shack_comment_tags dl {
 	width: 120px;
 	display: inline-block;
+	margin: 5px 0px;
+	padding: 0px 10px;
 }
 
 #shack_comment_tags dt, #shack_comment_tags dd {
@@ -51,4 +57,28 @@ div.fullpost.replying {
 
 #shack_comment_tags dd {
 	width: 50px;
+}
+
+.shack_new_post {
+	background-image: url('images/newcomment.gif') !important;
+}
+
+.shack_new_post.last {
+	background-image: url('images/newcommentlast.gif') !important;
+}
+
+.shack_user_reply {
+	background-image: url('images/newreply.gif') !important;
+}
+
+.shack_user_reply.last {
+	background-image: url('images/newreplylast.gif') !important;
+}
+
+div.root > ul > li.shack_new_post.last , div.root > ul > li.shack_user_reply.last {
+	background: none !important;
+}
+
+div.root > ul > li.shack_new_post .postnumber a:link , div.root > ul > li.shack_new_post .postnumber a:visited , div.root > ul > li.shack_new_post .postnumber a:active , div.root > ul > li.shack_new_post .postnumber a:hover {
+	background-image: url('images/newroot.gif') !important;
 }

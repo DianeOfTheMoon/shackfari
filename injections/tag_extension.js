@@ -33,7 +33,7 @@ TagExtension.prototype.installLink = function() {
 	$("<a>[ L O L ` d ]</a>")
 			.attr("id", "lollink")
 			.attr("title", "Check out what got the [lol]s")
-			.attr("href", this.LOL_URL + "?user=" + encodeURIComponent(this.getUsername()))
+			.attr("href", ShacknewsExtension.LOL_URL + "?user=" + encodeURIComponent(this.getUsername()))
 			.appendTo("div.commentstools:first");
 }
 
@@ -52,6 +52,11 @@ TagExtension.prototype.initializeTagBars = function() {
 	});
 }
 
+/**
+ *
+ * Creates a bar to be inserted into a root or fullpost
+ *
+ */
 TagExtension.prototype.createTagBar = function(parentNode) {
 	parentNode = $(parentNode);
 	if ($("#lol_" + parentNode.attr("id").substr(5)).length != 0) {
@@ -70,6 +75,11 @@ TagExtension.prototype.createTagBar = function(parentNode) {
 	}
 }
 
+/**
+ *
+ * Creates an individual tag for use in a tag bar.
+ *
+ */
 TagExtension.prototype.createButton = function(tag, parentNode) {
 	var curExtension = this;
 	var button = $("<a></a>")
@@ -86,13 +96,36 @@ TagExtension.prototype.createButton = function(tag, parentNode) {
 	return tag_button;
 }
 
+
+/**
+ *
+ * Simple event handler to monitor node changes for when someone clicks on a new post to view.
+ *
+ */
 TagExtension.prototype.listenForChanges = function() {
 	var curExtension = this;
+	
 	document.addEventListener("DOMNodeInserted", function(event) {
-		curExtension.domChanged(event);
+	
+		var element = $(event.srcElement);
+		
+		if (element.hasClass("fullpost")) {
+			curExtension.createTagBar(element.parent());
+			return;
+		} else if (element.hasClass("root")) {
+			//Do any fullposts
+			element.find(".fullpost").each(function(elemIndex, post) {
+				curExtension.createTagBar($(post).parent());
+			});
+		}
 	});
 }
 
+/**
+ *
+ * Listener for the global file, since we can't hit lmnopc.com directly.
+ *
+ */
 TagExtension.prototype.listenForPosts = function() {
 	var curExtension = this;
 	safari.self.addEventListener("message", function (eventMessage) { 
@@ -112,29 +145,17 @@ TagExtension.prototype.handlePostResponse = function(returnProps) {
 	
 	if (typeof returnProps == "string") {
 		console.log("Unable to parse response for tagging.");
+		console.log(returnProps);
 		return;
 	}
 	
 	//Otherwise, change the tag.
 	$("#" + returnProps.tag + returnProps.what)
-			.attr("href", this.LOL_URL + "?user=" + encodeURIComponent(returnProps.who))
+			.attr("href", ShacknewsExtension.LOL.URL + "?user=" + encodeURIComponent(returnProps.who))
 			.unbind("click")
 			.text("* " + returnProps.tag.toUpperCase() + " ' D *");
-}
-
-TagExtension.prototype.domChanged = function(event) {
-	var element = $(event.srcElement);
-	if (element.hasClass("fullpost")) {
-		this.createTagBar(element.parent());
-		return;
-	} else if (element.hasClass("root")) {
-		//Do any fullposts
-		var curExtension = this;
-		element.find(".fullpost").each(function(elemIndex, post) {
-			curExtension.createTagBar($(post).parent());
-		});
-	}
-	
+			
+	//TODO: Add code to store tag+post so that reloads still respect the tags.
 }
 
 TagExtension.prototype.tagThread = function(tagName, parentNode) {
@@ -143,7 +164,7 @@ TagExtension.prototype.tagThread = function(tagName, parentNode) {
 		who: this.getUsername(),
 		what: parentNode.attr("id").substr(5),
 		tag: tagName,
-		version: this.VERSION,
+		version: ShacknewsExtension.LOL.VERSION,
 		moderation: this.getModeration(parentNode)
 	};
 	

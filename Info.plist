@@ -33,6 +33,7 @@
 				<string>injections/profile_extension.js</string>
 				<string>injections/tag_extension.js</string>
 				<string>injections/comment_tag_extension.js</string>
+				<string>injections/new_posts_extension.js</string>
 			</array>
 			<key>Start</key>
 			<array>

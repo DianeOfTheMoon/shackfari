@@ -8,8 +8,16 @@ function CommentTagsExtension() {
 	this.extendShacknews();
 }
 
+/**
+ *
+ * Since latestchatty does some funky node cloning and such
+ * We need to monitor for when the postbox is inserted into the page
+ * and give it our comment tag black.
+ *
+ */
 CommentTagsExtension.prototype.extended = function() {
 	var curExtension = this;
+	
 	document.addEventListener("DOMNodeInserted", function(event) {
 		if ($("#postbox").length > 0) {
 			curExtension.replyPosted(event);
@@ -38,7 +46,7 @@ CommentTagsExtension.prototype.buildCommentTags = function() {
 	this.addListItem("blue", "b{", "}b", colors);
 	this.addListItem("yellow", "y{", "}y", colors);
 	this.addListItem("olive", "e[", "]e", colors);
-	this.addListItem("limegreen", "l[", "]l", colors);
+	this.addListItem("lime", "l[", "]l", colors);
 	this.addListItem("orange", "n[", "]n", colors);
 	this.addListItem("pink", "p[", "]p", colors);
 	
@@ -96,7 +104,7 @@ function insertCommentTag(name, opening_tag, closing_tag) {
 	if (name == "code")
 	{
 		whiteSpaceBefore = /^\s\s*/.test(input);
-		whiteSpaceBefore = /\s\s*$/.test(input);
+		whiteSpaceAfter = /\s\s*$/.test(input);
 		input = input.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 	}
 	else

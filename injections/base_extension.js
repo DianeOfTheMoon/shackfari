@@ -1,12 +1,13 @@
 function ShacknewsExtension(extensionName) {
 	this.extension = extensionName;
-	this.LOL_URL = "http://www.lmnopc.com/greasemonkey/shacklol/";
-	this.VERSION = "20090513";
+	this.username = null;
 }
+
+ShacknewsExtension.LOL = {URL: "http://www.lmnopc.com/greasemonkey/shacklol/", VERSION: "20090513"};
 
 ShacknewsExtension.prototype.extended = function(event) {
 		//Your code would extend from here
-		alert('Extension unimplemented');
+		alert('Extension ' + this.extension + ' unimplemented');
 	}
 
 ShacknewsExtension.prototype.extendShacknews = function(allPages) {
@@ -31,5 +32,8 @@ ShacknewsExtension.prototype.checkExtended = function(eventMessage) {
 }
 
 ShacknewsExtension.prototype.getUsername = function() {
-	return $("a.username:first").text();
+	if (this.username == null) {
+		this.username = $("a.username:first").text();
+	}
+	return this.username;
 }

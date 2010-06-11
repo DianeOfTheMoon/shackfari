@@ -92,7 +92,7 @@ NewPostRootManager.prototype.reloaded = function() {
 	
 		//Make sure to set this as a reply to us if needed!
 		$(this).addClass("shack_new_post");
-		if ($(this).parent().parent().find("a[href^=/profile]:first").text().trim() == curManager.user) {
+		if ($(this).parent().closest("li").find("a[href^=/profile]:first").text().trim() == curManager.user) {
 			$(this).addClass("shack_user_reply");
 		}
 		

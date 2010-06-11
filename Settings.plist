@@ -64,5 +64,15 @@
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>
+		<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>enableCollapsePosts</string>
+		<key>Title</key>
+		<string>Enable Collapsed Posts persistence</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
 </array>
 </plist>

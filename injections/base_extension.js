@@ -37,3 +37,12 @@ ShacknewsExtension.prototype.getUsername = function() {
 	}
 	return this.username;
 }
+
+ShacknewsExtension.prototype.isNewChatty = function(checkVar) {
+	return checkVar == null || this.getChattyPost() > checkVar || parseInt(checkVar) != checkVar;
+}
+
+ShacknewsExtension.prototype.getChattyPost = function() {
+	var chattyUrl = $("div.story a[href*=story]").attr("href");
+	return chattyUrl.substr(chattyUrl.indexOf("story") + 6);
+}

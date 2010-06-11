@@ -7,10 +7,10 @@
      <dict>
        <key>CFBundleIdentifier</key>
        <string>nws.shacknews.shackfari</string>
-       <key>Developer Identifier</key
+       <key>Developer Identifier</key>
        <string>EAAL2K6W6F</string>
        <key>CFBundleVersion</key>
-       <string>8</string>
+       <string>9</string>
        <key>CFBundleShortVersionString</key>
        <string>1.0</string>
        <key>URL</key>

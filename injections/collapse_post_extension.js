@@ -12,8 +12,8 @@ function CollapsePostsExtension() {
 CollapsePostsExtension.prototype.extended = function() {
 	var curExtension = this;
 	
-	if (this.isNewChatty(localStorage.collapsePostChatty)) {
-		localStorage.collapsePostChatty = this.getChattyPost();
+	if (ShacknewsExtension.isNewChatty()) {
+		localStorage.removeItem("collapsedList");
 	}
 	
 	//Now let's get our stored collapsed list
@@ -64,8 +64,8 @@ CollapsePostsExtension.prototype.removeCollapsed = function(curElem) {
 
 CollapsePostsExtension.prototype.collapsePosts = function() {
 	$.each(this.collapsedList, function() {
-		var rootElem = $("#root_" + this);
-		rootElem.addClass("collapsed");
+		var rootElem = $("#" + this);
+		rootElem.closest("div").addClass("collapsed");
 		rootElem.find("a.closepost").addClass("hidden");
 		rootElem.find("a.showpost").removeClass("hidden");
 	});
@@ -76,5 +76,5 @@ CollapsePostsExtension.prototype.saveCollapsed = function() {
 }
 
 CollapsePostsExtension.prototype.getPostId = function(postElem) {
-	return $(postElem).closest("li").attr("id").substr(5);
+	return $(postElem).closest("li").attr("id");
 }

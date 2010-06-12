@@ -44,10 +44,9 @@ TagExtension.prototype.installLink = function() {
  */
 TagExtension.prototype.initializeTagBars = function() {
 	//Let's grab all the root posts.
-	var rootPosts = document.getElementsByClassName("root");
 	var curExtension = this;
 	
-	$("div.root").each(function(i, post) {
+	ShacknewsExtension.getRootPosts().each(function(i, post) {
 		curExtension.createTagBar(post);
 	});
 }
@@ -138,7 +137,7 @@ TagExtension.prototype.listenForPosts = function() {
 /**
  *
  * Receives the LolScript tag response and either removes the ability to retag it
- * Or logs an error
+ * or logs an error
  *
  */
 TagExtension.prototype.handlePostResponse = function(returnProps) {

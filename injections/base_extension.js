@@ -4,11 +4,26 @@ function ShacknewsExtension(extensionName) {
 }
 
 ShacknewsExtension.LOL = {URL: "http://www.lmnopc.com/greasemonkey/shacklol/", VERSION: "20090513"};
+ShacknewsExtension.rootPosts = null;
+ShacknewsExtension.newChatty = false;
+
+/**
+ *
+ * Centralized method to grab all the root posts
+ *
+ */
+ShacknewsExtension.getRootPosts = function() {
+	if (ShacknewsExtension.rootPosts == null) {
+		ShacknewsExtension.rootPosts = $("div.root");
+	}
+	
+	return ShacknewsExtension.rootPosts;
+}
 
 ShacknewsExtension.prototype.extended = function(event) {
-		//Your code would extend from here
-		alert('Extension ' + this.extension + ' unimplemented');
-	}
+	//Your code would extend from here
+	alert('Extension ' + this.extension + ' unimplemented');
+}
 
 ShacknewsExtension.prototype.extendShacknews = function(allPages) {
 	
@@ -41,11 +56,16 @@ ShacknewsExtension.prototype.getUsername = function() {
 	return this.username;
 }
 
-ShacknewsExtension.prototype.isNewChatty = function(checkVar) {
-	return checkVar == null || this.getChattyPost() > checkVar || parseInt(checkVar) != checkVar;
+ShacknewsExtension.isNewChatty = function() {
+	if (localStorage.latestChattyPost == null || ShacknewsExtension.getChattyPost() > localStorage.latestChattyPost) {
+		localStorage.latestChattyPost = ShacknewsExtension.getChattyPost();
+		ShacknewsExtension.newChatty = true;
+	};
+	
+	return ShacknewsExtension.newChatty;
 }
 
-ShacknewsExtension.prototype.getChattyPost = function() {
+ShacknewsExtension.getChattyPost = function() {
 	var chattyUrl = $("div.story a[href*=story]").attr("href");
 	return chattyUrl.substr(chattyUrl.indexOf("story") + 6);
 }

@@ -23,6 +23,9 @@ CommentTagsExtension.prototype.extended = function() {
 			curExtension.replyPosted(event);
 		}
 	});
+	
+	//Go ahead and build the comment block, but only after everything is done.
+	setTimeout("commentTags.buildCommentTags()", 100);
 }
 
 CommentTagsExtension.prototype.replyPosted = function(event) {

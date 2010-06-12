@@ -25,9 +25,8 @@ NewPostsExtension.prototype.extended = function(message) {
 	var curExtension = this;
 	
 	//Let's key off of the chatty as a breakpoint to clear our data.
-	if (this.isNewChatty(localStorage.newPostChatty)) {
+	if (ShacknewsExtension.isNewChatty()) {
 		localStorage.removeItem("newPostList");
-		localStorage.newPostChatty = this.getChattyPost();
 	}
 	
 	//Now let's get our stored postings list
@@ -39,7 +38,7 @@ NewPostsExtension.prototype.extended = function(message) {
 	
 	
 	//Fire off a manager for the root posts!
-	$(".root").each(function() {
+	ShacknewsExtension.getRootPosts().each(function() {
 		var manager = new NewPostRootManager(this, curExtension.getUsername(), curExtension.newPostList);
 		curExtension.rootManagerList[this.id] = manager;
 	});

@@ -82,3 +82,5 @@ div.root > ul > li.shack_new_post.last , div.root > ul > li.shack_user_reply.las
 div.root > ul > li.shack_new_post .postnumber a:link , div.root > ul > li.shack_new_post .postnumber a:visited , div.root > ul > li.shack_new_post .postnumber a:active , div.root > ul > li.shack_new_post .postnumber a:hover {
 	background-image: url('images/newroot.gif') !important;
 }
+
+div.original_author a { color: rgb(0, 191, 243) !important; }

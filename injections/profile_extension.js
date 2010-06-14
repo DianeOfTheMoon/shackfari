@@ -1,6 +1,4 @@
 ProfileExtension.prototype = new ShacknewsExtension;
-ProfileExtension.prototype.constructor = ProfileExtension;
-
 var profileExtension = new ProfileExtension();
 
 function ProfileExtension() {
@@ -33,7 +31,7 @@ ProfileExtension.prototype.extended = function(eventMessage) {
 	
 	lols.style.color = 'white';
 	lols.innerHTML = ' [<span style="color: orange; font-size: inherit; font-weight: bold; margin: 0; padding: 0 4px;">lol</span>]';
-	lols.href = ShacknewsExtension.LOL_URL + "user.php?authoredby=" + escape(person);
+	lols.href = ShacknewsExtension.LOL.URL + "user.php?authoredby=" + escape(person);
 	lols.target = "_blank";
 
 	$("h3:first").append(lols);
@@ -44,11 +42,11 @@ ProfileExtension.prototype.extended = function(eventMessage) {
 		$("ul.status li:last").attr("href", "http://winchatty.com/search.php?author=" + escape(person));
 	}
 
-	var search = document.createElement("li");
-	search.innerHTML = '<a href="http://winchatty.com/search.php?terms=' + escape(person) + '">Vanity Search</a>';
-	status.appendChild(search);
+	var search = $("<li></li>");
+	search.html('<a href="http://winchatty.com/search.php?terms=' + escape(person) + '">Vanity Search</a>');
+	status.append(search);
 
-	var parent_author = document.createElement("li");
-	parent_author.innerHTML = '<a href="http://winchatty.com/search.php?parentAuthor=' + escape(person) + '">Parent Author</a>';
-	status.appendChild(parent_author);
+	var parent_author = $("<li></li>");
+	parent_author.html('<a href="http://winchatty.com/search.php?parentAuthor=' + escape(person) + '">Parent Author</a>');
+	status.append(parent_author);
 }

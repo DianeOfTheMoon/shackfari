@@ -44,14 +44,18 @@ NewPostsExtension.prototype.extended = function(message) {
 	});
 	
 	//Finally, let's wait for thread refreshes so everything can update correctly
-	$(document).bind("DOMNodeInserted", function(event) {
-		var element = $(event.srcElement);
-		if (element.hasClass("root")) {
-			curExtension.rootManagerList[element.attr("id")].reloaded();
-			curExtension.saveNewPosts();
-		}
-	});
+	this.listenForReloads();
 	
+	this.saveNewPosts();
+}
+
+/**
+ *
+ * Callback for when a thread is reloaded.
+ *
+ */
+NewPostsExtension.prototype.threadReloaded = function(thread) {
+	this.rootManagerList[thread.attr("id")].reloaded();
 	this.saveNewPosts();
 }
 

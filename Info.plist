@@ -29,13 +29,14 @@
 		<dict>
 			<key>Start</key>
 			<array>
-				<string>jquery-1.4.2.min.js</string>
+				<string>includes/jquery-1.4.2.min.js</string>
 				<string>injections/base_extension.js</string>
 				<string>injections/tag_extension.js</string>
 				<string>injections/profile_extension.js</string>
 				<string>injections/comment_tag_extension.js</string>
 				<string>injections/new_posts_extension.js</string>
 				<string>injections/collapse_post_extension.js</string>
+				<string>injections/highlight_user_extension.js</string>
 			</array>
 		</dict>
 		<key>Stylesheets</key>

@@ -1,6 +1,7 @@
 function ShacknewsExtension(extensionName) {
 	this.extension = extensionName;
 	this.username = null;
+	this.immediate = null;
 }
 
 ShacknewsExtension.LOL = {URL: "http://www.lmnopc.com/greasemonkey/shacklol/", VERSION: "20090513"};
@@ -25,10 +26,10 @@ ShacknewsExtension.prototype.extended = function(event) {
 	alert('Extension ' + this.extension + ' unimplemented');
 }
 
-ShacknewsExtension.prototype.extendShacknews = function(allPages) {
+ShacknewsExtension.prototype.extendShacknews = function(immediateExecute, allPages) {
 	
 	var curExtension = this;
-	
+	this.immediate = immediateExecute;
 	//Since scripts will run on all calls in shacknews, let's only register and run on the top window by default.
 	if (allPages || window == window.top) {
 		safari.self.tab.dispatchMessage("canExtendShacknews", curExtension.extension);
@@ -43,12 +44,36 @@ ShacknewsExtension.prototype.checkExtended = function(eventMessage) {
 		return;
 	}
 	
+	if (this.immediate != null) {
+		this.immediate();
+	}
 	
 	$(document).ready(function() {
 		curExtension.extended(eventMessage);
 	});
 }
 
+ShacknewsExtension.prototype.listenForReloads = function() {
+	var curExtension = this;
+	$(document).bind("DOMNodeInserted", function(event) {
+		var thread = $(event.srcElement);
+		
+		if (thread.hasClass("root")) {
+			curExtension.threadReloaded(thread);
+		}
+	});
+}
+
+ShacknewsExtension.prototype.threadReloaded = function(thread) {
+	console.log("a thread was reloaded with " + this.extension + " listening, but it had no handler defined!");
+}
+
+
+/**
+ *
+ * Returns the current user's name.
+ *
+ */
 ShacknewsExtension.prototype.getUsername = function() {
 	if (this.username == null) {
 		this.username = $("a.username:first").text();
@@ -56,6 +81,12 @@ ShacknewsExtension.prototype.getUsername = function() {
 	return this.username;
 }
 
+
+/**
+ *
+ * Determines if the chatty the script is on is a newer chatty than the last known.
+ *
+ */
 ShacknewsExtension.isNewChatty = function() {
 	if (localStorage.latestChattyPost == null || ShacknewsExtension.getChattyPost() > localStorage.latestChattyPost) {
 		localStorage.latestChattyPost = ShacknewsExtension.getChattyPost();
@@ -65,7 +96,16 @@ ShacknewsExtension.isNewChatty = function() {
 	return ShacknewsExtension.newChatty;
 }
 
+/**
+ *
+ * Retrieves the current chatty post id. If the post id cannot be found,
+ * this function returns null.
+ *
+ */
 ShacknewsExtension.getChattyPost = function() {
 	var chattyUrl = $("div.story a[href*=story]").attr("href");
+	if (!chattyUrl) {
+		return null;
+	}
 	return chattyUrl.substr(chattyUrl.indexOf("story") + 6);
 }

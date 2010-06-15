@@ -48,7 +48,7 @@ ShacknewsExtension.prototype.checkExtended = function(eventMessage) {
 		this.immediate();
 	}
 	
-	$(document).ready(function() {
+	$(document).ready(function processEnabledShacknewsExtension() {
 		curExtension.extended(eventMessage);
 	});
 }

@@ -38,7 +38,7 @@ NewPostsExtension.prototype.extended = function(message) {
 	
 	
 	//Fire off a manager for the root posts!
-	ShacknewsExtension.getRootPosts().each(function() {
+	ShacknewsExtension.getRootPosts().each(function fireOffNewPostManager() {
 		var manager = new NewPostRootManager(this, curExtension.getUsername(), curExtension.newPostList);
 		curExtension.rootManagerList[this.id] = manager;
 	});
@@ -100,7 +100,7 @@ NewPostRootManager.prototype.reloaded = function() {
 		}
 		
 		//Make sure to unset our newness when clicked!
-		$(this).find("span.oneline_body").bind("click.new_post", function(event) {
+		$(this).find("span.oneline_body").bind("click.new_post", function unsetNewPostMarker(event) {
 			$(this).parents("li.shack_new_post, li.shack_user_reply").andSelf().removeClass("shack_new_post shack_user_reply").unbind("click.new_post");
 		});
 	});
@@ -116,7 +116,7 @@ NewPostRootManager.prototype.reloaded = function() {
 NewPostRootManager.prototype.checkPosts = function() {
 	var newerPosts = [];
 	var curManager = this;
-    $("#root_" + curManager.postId).find("li").each(function() {
+    $("#root_" + curManager.postId).find("li").each(function findNewestPostInThread() {
     	var newPostId = this.id.substr(5);
     	if (typeof curManager.newPostList[curManager.postId] == 'undefined' || newPostId > curManager.newPostList[curManager.postId]) {
     		newerPosts.push(this);

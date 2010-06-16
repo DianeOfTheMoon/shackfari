@@ -33,7 +33,7 @@ TagExtension.prototype.installLink = function() {
 	$("<a>[ L O L ` d ]</a>")
 			.attr("id", "lollink")
 			.attr("title", "Check out what got the [lol]s")
-			.attr("href", ShacknewsExtension.LOL_URL + "?user=" + encodeURIComponent(this.getUsername()))
+			.attr("href", ShacknewsExtension.LOL.URL + "?user=" + encodeURIComponent(this.getUsername()))
 			.appendTo("div.commentstools:first");
 }
 

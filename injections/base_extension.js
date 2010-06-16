@@ -33,7 +33,7 @@ ShacknewsExtension.prototype.extendShacknews = function(immediateExecute, allPag
 	//Since scripts will run on all calls in shacknews, let's only register and run on the top window by default.
 	if (allPages || window == window.top) {
 		safari.self.tab.dispatchMessage("canExtendShacknews", curExtension.extension);
-		safari.self.addEventListener("message", function (eventMessage) { curExtension.checkExtended(eventMessage) }, false);
+		safari.self.addEventListener("message", function extendShacknewsMessageHandler(eventMessage) { curExtension.checkExtended(eventMessage) }, false);
 	}
 }
 
@@ -55,7 +55,7 @@ ShacknewsExtension.prototype.checkExtended = function(eventMessage) {
 
 ShacknewsExtension.prototype.listenForReloads = function() {
 	var curExtension = this;
-	$(document).bind("DOMNodeInserted", function(event) {
+	$(document).bind("DOMNodeInserted", function threadReloadHandler(event) {
 		var thread = $(event.srcElement);
 		
 		if (thread.hasClass("root")) {

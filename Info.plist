@@ -13,9 +13,20 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>13</string>
+	<string>15</string>
 	<key>Chrome</key>
 	<dict>
+		<key>Bars</key>
+		<array>
+			<dict>
+				<key>Filename</key>
+				<string>bars/smandchatty.html</string>
+				<key>Identifier</key>
+				<string>shacknewsbar</string>
+				<key>Label</key>
+				<string>Shacknews Bar</string>
+			</dict>
+		</array>
 		<key>Global Page</key>
 		<string>global.html</string>
 	</dict>

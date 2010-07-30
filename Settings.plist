@@ -84,5 +84,15 @@
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>enableBarButtons</string>
+		<key>Title</key>
+		<string>Add Bookmark &amp; Topsite buttons to Shacknews Bar</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
 </array>
 </plist>

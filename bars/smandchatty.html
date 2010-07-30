@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shackmessages</title>
+<script type="text/javascript" src="../includes/jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+	
+
+	$(document).ready(function() {
+		var xhr = new XMLHttpRequest();
+		
+		initialize();
+		
+		xhr.onreadystatechange = function(event) {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				var data = xhr.responseText;
+				xhr.abort();
+				updateLinks(data);
+				data = null;
+				event = null;
+			}
+		}
+		
+		setInterval(function () {
+			xhr.open("GET", "http://www.shacknews.com/latestchatty.x");
+			xhr.send();
+		}, 36000);
+		
+		xhr.open("GET", "http://www.shacknews.com/latestchatty.x");
+		xhr.send();
+			
+	});
+	
+	function initialize() {
+		$("#latestChatty").bind('click', function(event) {
+			$(this).removeClass("newChatty");
+			var tabFound = false;
+			$.each(safari.self.browserWindow.tabs, function () {
+			    
+			    if (this.url == $("#latestChatty").attr("href")) {
+			    	this.activate();
+			    	this.url = $("#latestChatty").attr("href");
+			    	tabFound = true;
+			    }
+			});
+			
+			if (!tabFound && (safari.self.browserWindow.tabs.length > 1 || typeof safari.self.browserWindow.activeTab.url != 'undefined')) {
+			    safari.self.browserWindow.openTab().url = $("#latestChatty").attr("href");
+			} else {
+			    safari.self.browserWindow.activeTab.url = $("#latestChatty").attr("href");
+			}
+			
+			event.preventDefault();
+		});
+		
+		if (safari.extension.settings.getItem("enableBarButtons")) {
+			createBarButtons();
+		}
+	}
+	
+	function createBarButtons() {
+		var bookmarks = $("<img id='bookmarks' prefix='BookmarksButton' src='../images/buttons/BookmarksButton.png' />");
+		var topsites = $("<img id='topsites' prefix='TopSitesButton' src='../images/buttons/TopSitesButton.png' />");
+		
+		bookmarks.add(topsites).mouseover(function() {
+			this.src = "../images/buttons/" + this.getAttribute("prefix") + "_Rollover.png";
+		}).mouseout(function () {
+			this.src = "../images/buttons/" + this.getAttribute("prefix") + ".png";
+		});
+		
+		bookmarks.click(function () {
+			safari.self.browserWindow.activeTab.url = "bookmarks://";
+		});
+		
+		topsites.click(function () {
+			safari.self.browserWindow.activeTab.url = "topsites://";
+		});
+		
+		
+		$("#latestChatty").before(bookmarks);
+		$("#latestChatty").before(topsites);
+	}
+	
+	function updateLinks(data) {
+		var curChattyLink = getLatestChattyLink(data);
+		var username = getUsername(data);
+		data = null;
+		delete data;
+		
+		if (curChattyLink == null) {
+			return;
+		}
+		
+		if (username != null) {
+			var encodedName = encodeURIComponent(username);
+			$("#profile").attr("href", "http://www.shacknews.com/profile/" + encodedName);
+			$("#vanity").attr("href", "http://winchatty.com/search.php?terms=" + encodedName);
+			$("#parent").attr("href", "http://winchatty.com/search.php?parentAuthor=" + encodedName);
+			$("#comments").attr("href", "http://winchatty.com/search.php?author=" + encodedName);
+		}
+		
+		var curChattyArticle = curChattyLink.replace(/.*href=".*onearticle.x\/(\d+).*/, "$1");
+		var curChattyText = curChattyLink.replace(/.*>(.*?)<.*/, "$1");
+		
+		if ($("#latestChatty").attr("href") != "http://www.shacknews.com/laryn.x?story=" + curChattyArticle) {
+			$("#latestChatty").addClass("newChatty");
+		}
+		
+		$("#latestChatty").attr("href", "http://www.shacknews.com/laryn.x?story=" + curChattyArticle).text(curChattyText);
+		
+		
+		return false;
+	}
+	
+	/**
+	 *
+	 * Returns the username from the latest chatty page.
+	 *
+	 */
+	function getUsername(data) {
+		var linkMatches = data.match(/\<a .*?class\="username">.*?<\/a>/i);
+		for (var i = 0; i < linkMatches.length; i++) {
+			if (linkMatches[i].substr(0,2) == '<a') {
+				return linkMatches[i].replace(/.*?>(.*?)<.*/i, "$1");
+			}
+		}
+		return null;
+	}
+	
+	function getMessages(data) {
+	}
+	
+	/**
+	 *
+	 * Grabs the latest chatty link for parsing
+	 *
+	 */
+	function getLatestChattyLink(data) {
+		var linkMatches = data.match(/<div class="story">\s*<h1>(.*?)<\/h1>/i);
+		for (var i = 0; i < linkMatches.length; i++) {
+			if(linkMatches[i].substr(0,2) == '<a') {
+				return linkMatches[i];
+			}
+		}
+	}
+</script>
+<style type="text/css">
+a, a:link, a:visited, a:hover {
+	font-family: 'Lucida Grande';
+	font-size: 8pt;
+	color: #303030;
+	text-decoration: none;
+	padding:1px 6px 2px 6px;
+	vertical-align: middle;
+}
+a.newChatty {
+	color: #F02E01;
+	font-weight: bold;
+}
+
+body {
+	height: 10px;
+}
+
+a:hover {
+	background-color: #808080;
+	-webkit-border-radius: 8px;
+	color: #FFFFFF;
+	text-shadow: 0px 1px 1px #303030;
+}
+
+img {
+	vertical-align: middle;
+}
+
+
+</style>
+</head>
+<body>
+<a id="latestChatty" href="http://www.shacknews.com/latestchatty.x">Latest Chatty</a><a id="profile" href="javascript:alert('You are not logged in!');return false;">Your Profile</a><a id="comments" href="javascript:alert('You are not logged in!'); return false;">Comments</a><a id="vanity" href="javascript:alert('You are not logged in!'); return false;">Vanity Search</a><a id="parent" href="javascript:alert('You are not logged in!'); return false;">Parent Author</a>
+</body>
+</html>

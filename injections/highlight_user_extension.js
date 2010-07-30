@@ -4,10 +4,12 @@ var highlightUsersExtension = new HighlightUsersExtension();
 
 function HighlightUsersExtension() {
 	ShacknewsExtension.call(this, "HighlightUsers");
-	this.extendShacknews(attachHighlightUsersCss);
+	this.extendShacknews();
 }
 
 HighlightUsersExtension.prototype.extended = function(message) {
+
+	attachHighlightUsersCss();
 
 	var curExtension = this;
 	var cssText = '';
@@ -34,5 +36,5 @@ HighlightUsersExtension.prototype.threadReloaded = function(thread) {
 }
 
 function attachHighlightUsersCss() {
-	document.write('<link rel="stylesheet" type="text/css"  href="' + safari.extension.baseURI + 'user_highlight.css" />');
+	$('<link rel="stylesheet" type="text/css"  href="' + safari.extension.baseURI + 'user_highlight.css" />').appendTo("head");
 }

@@ -32,23 +32,32 @@
 	});
 	
 	function initialize() {
+	
+		/**
+		 *
+		 * Bind to the latest chatty button to handle new tab/old tab functionality.
+		 *
+		 */
 		$("#latestChatty").bind('click', function(event) {
 			$(this).removeClass("newChatty");
 			var tabFound = false;
-			$.each(safari.self.browserWindow.tabs, function () {
-			    
-			    if (this.url == $("#latestChatty").attr("href")) {
-			    	this.activate();
-			    	this.url = $("#latestChatty").attr("href");
-			    	tabFound = true;
-			    }
-			});
-			
-			if (!tabFound && (safari.self.browserWindow.tabs.length > 1 || typeof safari.self.browserWindow.activeTab.url != 'undefined')) {
-			    safari.self.browserWindow.openTab().url = $("#latestChatty").attr("href");
-			} else {
-			    safari.self.browserWindow.activeTab.url = $("#latestChatty").attr("href");
+			if (safari.extension.settings.getItem("barSmartOpen")) {
+				$.each(safari.self.browserWindow.tabs, function () {
+				    if (typeof this.url != 'undefined' &&this.url.indexOf("http://www.shacknews.com/laryn.x") > -1) {
+						this.activate();
+						tabFound = true;
+				    }
+				});
+				console.log(tabFound);
+				console.log(safari.self.browserWindow.activeTab.url);
+				if (!tabFound && safari.self.browserWindow.activeTab.url != "") {
+					console.log('here');
+					var tab = safari.self.browserWindow.openTab();
+					tab.activate();
+				}
 			}
+			
+			safari.self.browserWindow.activeTab.url = $("#latestChatty").attr("href");
 			
 			event.preventDefault();
 		});
@@ -109,7 +118,7 @@
 		$("#latestChatty").attr("href", "http://www.shacknews.com/laryn.x?story=" + curChattyArticle).text(curChattyText);
 		
 		
-		return false;
+		return true;
 	}
 	
 	/**
@@ -160,6 +169,7 @@ a.newChatty {
 
 body {
 	height: 10px;
+	overflow: hidden;
 }
 
 a:hover {

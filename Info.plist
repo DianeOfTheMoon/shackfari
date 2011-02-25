@@ -13,7 +13,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>15</string>
+	<string>17</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Bars</key>
@@ -24,7 +24,7 @@
 				<key>Identifier</key>
 				<string>shacknewsbar</string>
 				<key>Label</key>
-				<string>Shacknews Bar</string>
+				<string>Shacknews</string>
 			</dict>
 		</array>
 		<key>Global Page</key>

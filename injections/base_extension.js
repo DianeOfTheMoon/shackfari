@@ -76,7 +76,7 @@ ShacknewsExtension.prototype.threadReloaded = function(thread) {
  */
 ShacknewsExtension.prototype.getUsername = function() {
 	if (this.username == null) {
-		this.username = $("a.username:first").text();
+		this.username = $("#user li.user a").text();
 	}
 	return this.username;
 }

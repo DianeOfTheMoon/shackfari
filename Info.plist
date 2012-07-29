@@ -4,6 +4,8 @@
 <dict>
 	<key>Author</key>
 	<string>DianeOfTheMoon</string>
+	<key>Builder Version</key>
+	<string>8536.25</string>
 	<key>CFBundleDisplayName</key>
 	<string>Shackfari</string>
 	<key>CFBundleIdentifier</key>

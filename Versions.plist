@@ -10,11 +10,11 @@
        <key>Developer Identifier</key>
        <string>EAAL2K6W6F</string>
        <key>CFBundleVersion</key>
-       <string>17</string>
+       <string>18</string>
        <key>CFBundleShortVersionString</key>
        <string>1.0</string>
        <key>URL</key>
-       <string>http://shackfari.googlecode.com/files/Shackfari.safariextz</string>
+       <string>https://github.com/downloads/DianeOfTheMoon/shackfari/shackfari.safariextz</string>
      </dict>
    </array>
 </dict>

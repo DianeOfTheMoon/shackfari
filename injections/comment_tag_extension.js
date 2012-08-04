@@ -29,7 +29,7 @@ CommentTagsExtension.prototype.extended = function() {
 }
 
 CommentTagsExtension.prototype.replyPosted = function(event) {
-	$("#postform").after(this.getCommentTags());
+	$("#postform div.ctextarea").first().append(this.getCommentTags());
 }
 
 CommentTagsExtension.prototype.getCommentTags = function() {

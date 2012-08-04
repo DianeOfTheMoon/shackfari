@@ -95,7 +95,7 @@ $(document).ready(function() {
 		if (username != null) {
 			var encodedName = encodeURIComponent(username);
 			"http://www.shacknews.com/search?&chatty_filter=all&result_sort=postdate_desc&chatty=1&type=4&chatty_term=&chatty_user=" + encodedName + "&chatty_author="
-			$("#profile").attr("href", "http://www.shacknews.com/profile/" + encodedName);
+			$("#profile").attr("href", "http://chattyprofil.es/p/" + encodedName);
 			$("#vanity").attr("href", "http://www.shacknews.com/search?&chatty_filter=all&result_sort=postdate_desc&chatty=1&type=4&chatty_term=" + encodedName + "&chatty_user=&chatty_author=");
 			$("#parent").attr("href", "http://www.shacknews.com/search?&chatty_filter=all&result_sort=postdate_desc&chatty=1&type=4&chatty_term=&chatty_user=&chatty_author=" + encodedName);
 			$("#comments").attr("href", "http://www.shacknews.com/search?&chatty_filter=all&result_sort=postdate_desc&chatty=1&type=4&chatty_term=&chatty_user=" + encodedName + "&chatty_author=");

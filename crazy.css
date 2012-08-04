@@ -28,6 +28,21 @@ div.fullpost.replying {
 	-webkit-border-bottom-right-radius: 0px;
 }
 
+#shacktags_legend {
+	display: none;
+}
+
+#shack_comment_tags {
+	position: absolute;
+	top: 0px;
+	right: -270px;
+}
+
+#postbox #postform div.ctextarea {
+	width: auto !important;
+	position: relative;
+}
+
 #shack_comment_tags h4 {
 	text-align: center;
 }

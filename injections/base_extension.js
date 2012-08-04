@@ -4,7 +4,7 @@ function ShacknewsExtension(extensionName) {
 	this.immediate = null;
 }
 
-ShacknewsExtension.LOL = {URL: "http://www.lmnopc.com/greasemonkey/shacklol/", VERSION: "20090513"};
+ShacknewsExtension.LOL = {URL: "http://www.lmnopc.com/greasemonkey/shacklol/", VERSION: "20110419"};
 ShacknewsExtension.rootPosts = null;
 ShacknewsExtension.newChatty = false;
 

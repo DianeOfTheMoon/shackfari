@@ -4,32 +4,6 @@
 <array>
 	<dict>
 		<key>Title</key>
-		<string>Profile Page Items</string>
-		<key>Type</key>
-		<string>Group</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<true/>
-		<key>Key</key>
-		<string>enableProfile</string>
-		<key>Title</key>
-		<string>Enable Profile Extension</string>
-		<key>Type</key>
-		<string>CheckBox</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<true/>
-		<key>Key</key>
-		<string>enableWinChatty</string>
-		<key>Title</key>
-		<string>Enable WinChatty Comment Replacement Extension</string>
-		<key>Type</key>
-		<string>CheckBox</string>
-	</dict>
-	<dict>
-		<key>Title</key>
 		<string>Comment Settings</string>
 		<key>Type</key>
 		<string>Group</string>
@@ -85,18 +59,8 @@
 		<string>CheckBox</string>
 	</dict>
 	<dict>
-		<key>DefaultValue</key>
-		<true/>
-		<key>Key</key>
-		<string>enableBarButtons</string>
 		<key>Title</key>
-		<string>Add Bookmark &amp; Topsite buttons to Shacknews Bar</string>
-		<key>Type</key>
-		<string>CheckBox</string>
-	</dict>
-	<dict>
-		<key>Title</key>
-		<string>Shacknews Bar Settings</string>
+		<string>Profile Page Items</string>
 		<key>Type</key>
 		<string>Group</string>
 	</dict>
@@ -104,9 +68,19 @@
 		<key>DefaultValue</key>
 		<true/>
 		<key>Key</key>
-		<string>barSmartOpen</string>
+		<string>enableProfile</string>
 		<key>Title</key>
-		<string>Smart Open shacknews links</string>
+		<string>Enable Profile Extension</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>enableWinChatty</string>
+		<key>Title</key>
+		<string>Use WinChatty Search</string>
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>

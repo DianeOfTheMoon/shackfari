@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  
 		var xhr = new XMLHttpRequest();
 		
 		initialize();
@@ -15,10 +16,12 @@ $(document).ready(function() {
 		
 		setInterval(function () {
 			xhr.open("GET", "http://www.shacknews.com/chatty");
+		//	xhr.withCredentials = "true";
 			xhr.send();
 		}, 36000);
 		
 		xhr.open("GET", "http://www.shacknews.com/chatty");
+	//	xhr.withCredentials = "true";
 		xhr.send();
 			
 	});
@@ -91,7 +94,7 @@ $(document).ready(function() {
 		//if (curChattyLink == null) {
 			//return;
 		//}
-		
+
 		if (username != null) {
 			var encodedName = encodeURIComponent(username);
 			"http://www.shacknews.com/search?&chatty_filter=all&result_sort=postdate_desc&chatty=1&type=4&chatty_term=&chatty_user=" + encodedName + "&chatty_author="
@@ -101,14 +104,14 @@ $(document).ready(function() {
 			$("#comments").attr("href", "http://www.shacknews.com/search?&chatty_filter=all&result_sort=postdate_desc&chatty=1&type=4&chatty_term=&chatty_user=" + encodedName + "&chatty_author=");
 		}
 		
-		var curChattyArticle = curChattyLink.replace(/.*href=".*onearticle.x\/(\d+).*/, "$1");
-		var curChattyText = curChattyLink.replace(/.*>(.*?)<.*/, "$1");
+		//var curChattyArticle = curChattyLink.replace(/.*href=".*onearticle.x\/(\d+).*/, "$1");
+		//var curChattyText = curChattyLink.replace(/.*>(.*?)<.*/, "$1");
 		
-		if ($("#latestChatty").attr("href") != "http://www.shacknews.com/laryn.x?story=" + curChattyArticle) {
-			$("#latestChatty").addClass("newChatty");
-		}
+		//if ($("#latestChatty").attr("href") != "http://www.shacknews.com/laryn.x?story=" + curChattyArticle) {
+		//	$("#latestChatty").addClass("newChatty");
+		//}
 		
-		$("#latestChatty").attr("href", "http://www.shacknews.com/laryn.x?story=" + curChattyArticle).text(curChattyText);
+		//$("#latestChatty").attr("href", "http://www.shacknews.com/laryn.x?story=" + curChattyArticle).text(curChattyText);
 		
 		
 		return true;
@@ -126,6 +129,7 @@ $(document).ready(function() {
 				return linkMatches[i].replace(/.*\>([^\>]*)<\/a.*/i, "$1");
 			}
 		}
+
 		return null;
 	}
 	

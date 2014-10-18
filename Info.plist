@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>DianeOfTheMoon</string>
 	<key>Builder Version</key>
-	<string>8536.25</string>
+	<string>10600.1.25</string>
 	<key>CFBundleDisplayName</key>
 	<string>Shackfari</string>
 	<key>CFBundleIdentifier</key>
@@ -15,29 +15,14 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>18</string>
+	<string>19</string>
 	<key>Chrome</key>
 	<dict>
-		<key>Bars</key>
-		<array>
-			<dict>
-				<key>Filename</key>
-				<string>bars/smandchatty.html</string>
-				<key>Identifier</key>
-				<string>shacknewsbar</string>
-				<key>Label</key>
-				<string>Shacknews</string>
-			</dict>
-		</array>
 		<key>Global Page</key>
 		<string>global.html</string>
 	</dict>
 	<key>Content</key>
 	<dict>
-		<key>Blacklist</key>
-		<array>
-			<string>http://*.shacknews.com/frame_laryn.x</string>
-		</array>
 		<key>Scripts</key>
 		<dict>
 			<key>Start</key>
@@ -45,11 +30,11 @@
 				<string>includes/jquery-1.4.2.min.js</string>
 				<string>injections/base_extension.js</string>
 				<string>injections/tag_extension.js</string>
-				<string>injections/profile_extension.js</string>
 				<string>injections/comment_tag_extension.js</string>
 				<string>injections/new_posts_extension.js</string>
 				<string>injections/collapse_post_extension.js</string>
 				<string>injections/highlight_user_extension.js</string>
+				<string>injections/profile_extension.js</string>
 			</array>
 		</dict>
 		<key>Stylesheets</key>
@@ -60,6 +45,8 @@
 	</dict>
 	<key>Description</key>
 	<string>It gets you extensions!</string>
+	<key>DeveloperIdentifier</key>
+	<string>EAAL2K6W6F</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
@@ -71,6 +58,8 @@
 				<string>*.shacknews.com</string>
 				<string>*.lmnopc.com</string>
 			</array>
+			<key>Include Secure Pages</key>
+			<true/>
 			<key>Level</key>
 			<string>Some</string>
 		</dict>

@@ -10,7 +10,6 @@
 	border: 2px solid #5F93C6;
 	background: #000;
 	-webkit-box-shadow: 0px 0px 4px #4D81B2;
-	margin-top: 33px;
 	height: 225px;
 }
 
@@ -32,12 +31,6 @@ div.fullpost.replying {
 	display: none;
 }
 
-#shack_comment_tags {
-	position: absolute;
-	top: 0px;
-	right: -270px;
-}
-
 #postbox #postform div.ctextarea {
 	width: auto !important;
 	position: relative;
@@ -45,6 +38,7 @@ div.fullpost.replying {
 
 #shack_comment_tags h4 {
 	text-align: center;
+  margin: 0px !important;
 }
 
 #shack_comment_tags dl {

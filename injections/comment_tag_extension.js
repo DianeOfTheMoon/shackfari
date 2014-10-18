@@ -12,14 +12,14 @@ function CommentTagsExtension() {
  *
  * Since latestchatty does some funky node cloning and such
  * We need to monitor for when the postbox is inserted into the page
- * and give it our comment tag black.
+ * and give it our comment tag block.
  *
  */
 CommentTagsExtension.prototype.extended = function() {
 	var curExtension = this;
 	
 	document.addEventListener("DOMNodeInserted", function(event) {
-		if ($("#postbox").length > 0) {
+		if ($("#postbox").length > 0 && $("#shack_comment_tags").length == 0) {
 			curExtension.replyPosted(event);
 		}
 	});
@@ -36,7 +36,7 @@ CommentTagsExtension.prototype.getCommentTags = function() {
 	if (this.commentTags == null) {
 		this.buildCommentTags();
 	}
-	
+
 	return this.commentTags;
 }
 

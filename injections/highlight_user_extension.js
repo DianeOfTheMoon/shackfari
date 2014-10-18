@@ -32,7 +32,7 @@ HighlightUsersExtension.prototype.threadReloaded = function(thread) {
 			break;
 		}
 	}
-	$(thread).find("div.olauthor_" + poster + " a.oneline_user").addClass("original_poster");
+	$(thread).find("div.olauthor_" + poster + " span.oneline_user").addClass("original_poster");
 }
 
 function attachHighlightUsersCss() {

@@ -1,6 +1,7 @@
 /* lol buttons */
 div.lol { display:inline; float: none; padding-left: 10px; font-size: 14px !important; }
 a.lol_button { padding: 0 0.25em !important; text-decoration: underline !important; font-weight: normal !important}
+a.lol_button.ugh { color: #00bb00 !important; }
 a.lol_button.wtf { color: #c000c0 !important; }
 a.lol_button.tag { color: #7b2 !important; }
 a.lol_button.unf { color: #f00 !important; }
@@ -11,8 +12,7 @@ a.lol_button.lol { color: #f80 !important; }
     width: 190px;
     height: 45px;
     position: absolute;
-    left: auto;
-    right: 0;
+    left: 180px;
     top: 12px;
     text-indent: -9999px;
     color: #f00;
@@ -22,7 +22,7 @@ a.lol_button.lol { color: #f80 !important; }
 img.imageloader { max-width: 600px; max-height: 600px; }
 
 /* comment tags */
-#shack_comment_tags { float:left; padding:5px; }
+#shack_comment_tags { float:right; padding:5px; margin-left: 10px; }
 #shack_comment_tags p { margin: 0.5em 0px 7px 0px; }
 #shack_comment_tags .jt_italics  { font-style: italic; }
 div.newcommentform { position: relative !important; width: inherit !important; min-width: 580px; }

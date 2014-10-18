@@ -5,7 +5,7 @@ function TagExtension() {
 	ShacknewsExtension.call(this, "Tag");
 	
 	this.extendShacknews();
-	this.tags = ['lol', 'inf', 'unf', 'tag', 'wtf'];
+	this.tags = ['lol', 'inf', 'unf', 'tag', 'wtf', 'ugh'];
 }
 
 /**
@@ -141,7 +141,7 @@ TagExtension.prototype.listenForPosts = function() {
  *
  */
 TagExtension.prototype.handlePostResponse = function(returnProps) {
-	
+
 	if (typeof returnProps == "string") {
 		console.log("Unable to parse response for tagging.");
 		console.log(returnProps);

@@ -95,9 +95,10 @@ NewPostRootManager.prototype.reloaded = function() {
 	
 		//Make sure to set this as a reply to us if needed!
 		$(this).addClass("shack_new_post");
-		if ($(this).parent().closest("li").find("a[href^=/profile]:first").text().trim() == curManager.user) {
-			$(this).addClass("shack_user_reply");
-		}
+		//TODO: Re-enable.
+		//if ($(this).parent().closest("li").find('a[href^=/profile]:first').text().trim() == curManager.user) {
+		//	$(this).addClass("shack_user_reply");
+		//}
 		
 		//Make sure to unset our newness when clicked!
 		$(this).find("span.oneline_body").bind("click.new_post", function unsetNewPostMarker(event) {

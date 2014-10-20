@@ -31,7 +31,7 @@ ProfileExtension.prototype.extended = function(eventMessage) {
   	var enableWinChatty = eventMessage.message;
   	
   	lols.innerHTML = ' [<span style="color: orange; font-size: inherit; font-weight: bold; margin: 0; padding: 0 4px;">lol</span>]';
-  	lols.href = ShacknewsExtension.LOL.URL + "user.php?authoredby=" + escape(person);
+  	lols.href = LOL.URL + "user.php?authoredby=" + escape(person);
   	lols.target = "_blank";
   
   	$("ul.search-nav").append("<li></li>");

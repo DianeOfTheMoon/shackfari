@@ -7,10 +7,13 @@ safari.application.addEventListener("message", canExtendShacknews, false);
  *
  */
 function canExtendShacknews(eventMessage) {
+	console.log('got routed message ' + eventMessage.name);
 	if (eventMessage.name == "canExtendShacknews") {
 		shacknewsExtensions(eventMessage);
 	} else if (eventMessage.name == "shacknewsTagThread") {
 		shackLolPost(eventMessage);
+	} else if (eventMessage.name === "shacknewsGetLolCounts") {
+		getShackLols(eventMessage);
 	}
 }
 
@@ -28,7 +31,6 @@ function shacknewsExtensions(eventMessage) {
 		eventMessage.target.page.dispatchMessage("canExtendShacknews" + extendOption, retData);
 	}
 }
-
 
 function shackLolPost(eventMessage) {
 	var request = new XMLHttpRequest();
@@ -48,4 +50,14 @@ function shackLolPost(eventMessage) {
 	console.log("connecting to " + url);		
 	request.open("GET", url, true);
 	request.send("");
+}
+
+function getShackLols(eventMessage) {
+	console.log('Getting LOL counts.');
+	$.get(eventMessage.message, function(data, statusText, xhr) {
+		if(xhr.status == 200) {
+			console.log('retrieved lol counts.');
+			eventMessage.target.page.dispatchMessage("shackLolsGot", data);
+		}
+	});
 }

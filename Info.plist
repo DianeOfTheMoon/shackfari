@@ -35,6 +35,7 @@
 				<string>injections/collapse_post_extension.js</string>
 				<string>injections/highlight_user_extension.js</string>
 				<string>injections/profile_extension.js</string>
+				<string>injections/expiration_watcher_extension.js</string>
 				<string>injections/inline_image_extension.js</string>
 			</array>
 		</dict>

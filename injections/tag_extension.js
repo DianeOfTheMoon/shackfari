@@ -173,7 +173,6 @@ TagExtension.prototype.listenForPosts = function() {
 }
 
 TagExtension.prototype.countsRetrieved = function (counts) {
-	console.log('holy crap we got something!');
 
 	this.installLinkAndCSS();
 	this.initializeTagBars();

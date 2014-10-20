@@ -4,7 +4,6 @@ function ShacknewsExtension(extensionName) {
 	this.immediate = null;
 }
 
-ShacknewsExtension.LOL = {URL: "http://www.lmnopc.com/greasemonkey/shacklol/", VERSION: "20110419"};
 ShacknewsExtension.rootPosts = null;
 ShacknewsExtension.newChatty = false;
 
@@ -75,12 +74,15 @@ ShacknewsExtension.prototype.threadReloaded = function(thread) {
  *
  */
 ShacknewsExtension.prototype.getUsername = function() {
+	return ShacknewsExtension.getUsername();
+}
+
+ShacknewsExtension.getUsername = function() {
 	if (this.username == null) {
 		this.username = $("#user_posts").text();
 	}
 	return this.username;
 }
-
 
 /**
  *
@@ -108,4 +110,73 @@ ShacknewsExtension.getChattyPost = function() {
 		return null;
 	}
 	return chattyUrl.substr(chattyUrl.indexOf("story") + 6);
+}
+
+
+// utility function to make an XMLHttpRequest
+ShacknewsExtension.getUrl = function (url, callback)
+{
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function()
+	{
+		if (xhr.readyState == 4)
+		{
+			callback(xhr);
+		}
+	}
+	xhr.open("GET", url, true);
+	xhr.send();
+}
+
+ShacknewsExtension.putUrl = function (url, data, callback)
+{
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function()
+	{
+		if(xhr.readyState == 4)
+		{
+			if(xhr != undefined && xhr != null)
+			{
+				callback(xhr);
+			}
+		}
+	}
+	xhr.open("PUT", url, true);
+	xhr.send(data);
+}
+
+ShacknewsExtension.postUrl = function (url, data, callback)
+{
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function()
+	{
+		if(xhr.readyState == 4)
+		{
+			if(xhr != undefined && xhr != null)
+			{
+				callback(xhr);
+			}
+		}
+	}
+	xhr.open("POST", url, true);
+	xhr.send(data);
+}
+
+ShacknewsExtension.postFormUrl = function (url, data, callback)
+{
+	// It's necessary to set the request headers for PHP's $_POST stuff to work properly
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function()
+	{
+		if(xhr.readyState == 4)
+		{
+			if(xhr != undefined && xhr != null)
+			{
+				callback(xhr);
+			}
+		}
+	}
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send(data);
 }

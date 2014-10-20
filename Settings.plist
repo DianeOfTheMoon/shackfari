@@ -59,6 +59,26 @@
 		<string>CheckBox</string>
 	</dict>
 	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>enableInlineImages</string>
+		<key>Title</key>
+		<string>Inline Images</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>enableExpirationWatcher</string>
+		<key>Title</key>
+		<string>Expiration Watcher</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
 		<key>Title</key>
 		<string>Profile Page Items</string>
 		<key>Type</key>

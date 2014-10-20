@@ -1,12 +1,13 @@
 /* lol buttons */
 div.lol { display:inline; float: none; padding-left: 10px; font-size: 14px !important; }
 a.lol_button { padding: 0 0.25em !important; text-decoration: underline !important; font-weight: normal !important}
-a.lol_button.ugh { color: #00bb00 !important; }
+a.lol_button.ugh { color: #0b0 !important; }
 a.lol_button.wtf { color: #c000c0 !important; }
 a.lol_button.tag { color: #7b2 !important; }
 a.lol_button.unf { color: #f00 !important; }
 a.lol_button.inf { color: #09c !important; }
 a.lol_button.lol { color: #f80 !important; }
+
 #lollink {
     display: block;
     width: 190px;
@@ -17,6 +18,53 @@ a.lol_button.lol { color: #f80 !important; }
     text-indent: -9999px;
     color: #f00;
     background-image: url("images/lol.png");
+}
+
+
+.oneline_tags { display: inline; overflow: hidden; white-space: nowrap; }
+.oneline_tags span { margin: 0 2px 0 2px; padding: 0 2px; -webkit-border-radius: 3px; background-color: #f8f; color: #000; font-size: 10px; font-weight: bold; }
+
+.expiration-watcher-bar .fullpost .postdate { right: 55px !important; }
+.expiration-watcher-doom .fullpost .postdate { right: 35px !important; }
+.expiration-watcher-bar .capcontainer .fullpost .postdate,
+.expiration-watcher-doom .capcontainer .fullpost .postdate { right: 0px !important; }
+
+.countdown-wrap {
+    height: 8px;
+    width: 48px;
+    position: absolute;
+    bottom: 6px;
+    right: 5px;
+    background-color: #ddd;
+    -webkit-border-radius: 4px;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #aaa), color-stop(0.4, #ccc), color-stop(0.6, #ccc), color-stop(1, #eee));
+}
+
+.expired-wrap {
+    height: 8px;
+    width: 48px;
+    position: absolute;
+    bottom: 6px;
+    right: 5px;
+    background-color: #ddd;
+    -webkit-border-radius: 4px;
+}
+
+.countdown-value {
+    height: 100%;
+    width: 0;
+    -webkit-border-radius: 4px;
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(.25, rgba(255, 255, 255, .4)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .4)), color-stop(.75, rgba(255, 255, 255, .4)), color-stop(.75, transparent), to(transparent));
+    -webkit-background-size: 25px 25px;
+    -webkit-box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -2px 3px rgba(0, 0, 0, 0.4);
+}
+
+.expired-value {
+    height: 100%;
+    width: 0;
+    -webkit-border-radius: 4px;
+    -webkit-background-size: 25px 25px;
+    -webkit-box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -2px 3px rgba(0, 0, 0, 0.4);
 }
 
 img.imageloader { max-width: 600px; max-height: 600px; }

@@ -1,3 +1,20 @@
+LOL =
+{
+	counts: null,
+	processed_posts: false,
+	tags: [
+		{name: "lol", color: "#f80"},
+		{name: "inf", color: "#09c"},
+		{name: "unf", color: "#f00"},
+		{name: "tag", color: "#7b2"},
+		{name: "wtf", color: "#c000c0"},
+		{name: "ugh", color: "#0b0"}
+	],
+	URL: "http://www.lmnopc.com/greasemonkey/shacklol/",
+	VERSION: "20110419",
+	COUNT_URL: "http://www.lmnopc.com/greasemonkey/shacklol/api.php?special=getcounts"
+};
+
 TagExtension.prototype = new ShacknewsExtension;
 TagExtension.prototype.constructor = TagExtension;
 
@@ -5,7 +22,6 @@ function TagExtension() {
 	ShacknewsExtension.call(this, "Tag");
 	
 	this.extendShacknews();
-	this.tags = ['lol', 'inf', 'unf', 'tag', 'wtf', 'ugh'];
 }
 
 /**
@@ -15,26 +31,41 @@ function TagExtension() {
  *
  */
 TagExtension.prototype.extended = function(eventMessage) {
+	console.log('lol extension enabled.');
 	if (document.getElementById("lollink") != null) {
+		console.log('lol already installed. Skipping insertion');
 		return;
 	}
-	this.installLink();
-	this.initializeTagBars();
-	this.listenForChanges();
+
 	this.listenForPosts();
-	
+
+	safari.self.tab.dispatchMessage("shacknewsGetLolCounts", LOL.COUNT_URL);
 }
+
 /**
  *
  * Installs the Lol link in the comment bar for easy checking.
  *
  */
-TagExtension.prototype.installLink = function() {
+TagExtension.prototype.installLinkAndCSS = function() {
 	$("<a>[ L O L ` d ]</a>")
 			.attr("id", "lollink")
 			.attr("title", "Check out what got the [lol]s")
-			.attr("href", ShacknewsExtension.LOL.URL + "?user=" + encodeURIComponent(this.getUsername()))
+			.attr("href", LOL.URL + "?user=" + encodeURIComponent(this.getUsername()))
+			.attr('target', '_blank')
 			.appendTo("div.commentstools:first");
+
+	var css = '';
+	for (var i = 0; i < LOL.tags.length; i++)
+	{
+		css += '.oneline_tags .oneline_' + LOL.tags[i].name + ' { background-color: ' + LOL.tags[i].color + '; }\n';
+	}
+
+	var styleBlock = document.createElement('style');
+	styleBlock.type = 'text/css';
+	styleBlock.appendChild(document.createTextNode(css));
+
+	document.getElementsByTagName('body')[0].appendChild(styleBlock);
 }
 
 /**
@@ -63,15 +94,19 @@ TagExtension.prototype.createTagBar = function(parentNode) {
 	}
 	
 	var bar = $("<div></div>").attr("id", "lol_" + parentNode.attr("id").substr(5)).addClass("lol");
-	for (var tag in this.tags) {
-		bar.append(this.createButton(this.tags[tag], parentNode));
+	for (var tag in LOL.tags) {
+		bar.append(TagExtension.createButton(LOL.tags[tag], parentNode));
 	}
-	
+
 	try {
 		$(parentNode).find(".author:first").append(bar);
 	} catch (e) {
 		console.log("Unable to locate author element for node " + parentNode.id);
+		return; //No point in continuing.
 	}
+
+	var rootId = parentNode.closest('.root').attr('id').replace('root_', '');
+	TagExtension.showThreadCounts(rootId);
 }
 
 /**
@@ -79,15 +114,15 @@ TagExtension.prototype.createTagBar = function(parentNode) {
  * Creates an individual tag for use in a tag bar.
  *
  */
-TagExtension.prototype.createButton = function(tag, parentNode) {
+TagExtension.createButton = function(tag, parentNode) {
 	var curExtension = this;
 	var button = $("<a></a>")
-			.attr("id", tag + parentNode.attr("id").substr(5))
+			.attr("id", tag.name + parentNode.attr("id").substr(5))
 			.attr("href", "#")
-			.text(tag)
-			.addClass("lol_button " + tag)
+			.text(tag.name)
+			.addClass("lol_button " + tag.name)
 			.bind("click", function(event) {
-					curExtension.tagThread(tag, parentNode);
+					TagExtension.tagThread(tag.name, parentNode);
 					event.preventDefault();
 			});
 			
@@ -99,7 +134,7 @@ TagExtension.prototype.createButton = function(tag, parentNode) {
 /**
  *
  * Simple event handler to monitor node changes for when someone clicks on a new post to view.
- *
+ * TODO: Change this to be aware of retrieved counts and show them in createTagBar
  */
 TagExtension.prototype.listenForChanges = function() {
 	var curExtension = this;
@@ -131,7 +166,187 @@ TagExtension.prototype.listenForPosts = function() {
 		if (eventMessage.name == "shackLolPosted") {
 			curExtension.handlePostResponse(eventMessage.message);
 		}
+		if (eventMessage.name == "shackLolsGot") {
+			curExtension.countsRetrieved(eventMessage.message);
+		}
 	}, false);
+}
+
+TagExtension.prototype.countsRetrieved = function (counts) {
+
+	this.installLinkAndCSS();
+	this.initializeTagBars();
+	this.listenForChanges();
+
+	// Store original LOL.counts
+	var oldLolCounts = LOL.counts;
+
+	LOL.counts = JSON.parse(counts);
+
+	// Call displayCounts again only if the counts have actually changed
+	if (LOL.counts != oldLolCounts) {
+		ShacknewsExtension.getRootPosts().each(function() {
+			TagExtension.showThreadCounts(this.id.replace('root_', ''));
+		})
+	}
+}
+
+TagExtension.showThreadCounts = function(threadId)
+{
+	//Haven't gotten lol counts yet, so there's nothing to do here.
+	if(LOL.counts === null) {
+		return;
+	}
+
+	var rootId = -1;
+
+	// Make sure this is a rootId
+	if ($(document).find('#root_' + threadId))
+	{
+		rootId = threadId;
+	}
+	else
+	{
+		// If this is a subthread, the root needs to be found
+		var liItem = $(document).find('#item_' + threadId);
+		if (liItem.length != 0)
+		{
+			do
+			{
+				liItem = liItem.parentNode;
+
+				if (liItem.className == 'root')
+				{
+					rootId = liItem.id.split('_')[1];
+					break;
+				}
+			}
+			while (liItem.parentNode != null)
+		}
+	}
+
+	if (rootId == -1)
+	{
+		console.log('Could not find root for ' + threadId);
+		return;
+	}
+
+	// If there aren't any tagged threads in this root there's no need to proceed
+	if (!LOL.counts[rootId])
+	{
+		console.log('No lols for ' + rootId);
+		return;
+	}
+
+	// Store the tag names in an array for easy comparisons in the loop
+	var tag_names = [];
+	for (var i = 0; i < LOL.tags.length; i++)
+		tag_names.push(LOL.tags[i].name);
+
+	// Update all the ids under the rootId we're in
+	for (id in LOL.counts[rootId])
+	{
+		for (tag in LOL.counts[rootId][id])
+		{
+/*
+TODO: Re-enable ughs.  This code needs help.  It probably won't work as-is
+			// Evaluate [ugh]s
+			// Must be root post, ughThreshold must be enabled, tag must be ugh, and counts have to be gte the ughThreshold
+			if ((id == rootId) && (threadId == rootId) && (LOL.ughThreshold > 0) && (tag == 'ugh') && (LOL.counts[rootId][id][tag] >= LOL.ughThreshold)) {
+				var root = $(document).find('#root_' + id);
+				if (root.className.indexOf('collapsed') == -1)
+				{
+					var close = $(root).children('a.closepost');
+					var show = $(root).children('a.showpost');
+					close.click(function() { Collapse.close(id); });
+					show.click(function() { Collapse.show(id); });
+					root.className += " collapsed";
+					show.className = "showpost";
+					close.className = "closepost hidden";
+				}
+			}
+*/
+
+			//TODO: None of these options exist in shackfari.
+
+			// If showCounts is configured as limited and this tag isn't in the user's list of tags, skip it
+			if (((LOL.showCounts == 'limited') || (LOL.showCounts == 'short')) && (tag_names.indexOf(tag) == -1))
+				continue;
+
+			// Add * x indicators in the fullpost
+			var tgt = $(document).find('#' + tag + id);
+
+			//TODO: Dunno if this'll work.  But we should already have the lol div so it doesn't matter.
+			//if (tgt.length === 0 && id == rootId)
+			//{
+			//	// create the button if it doesn't exist
+			//	var lol_button = LOL.createButton(tag, id, '#ddd');
+			//	var lol_div = $(document).find('#' + 'lol_' + id);
+			//	lol_div.appendChild(lol_button);
+            //
+			//	// get the link
+			//	tgt = $(document).find('#' + tag + id);
+			//}
+
+			if (tgt.length !== 0)
+			{
+				if (LOL.showCounts == 'short')
+				{
+					tgt.html(LOL.counts[rootId][id][tag]);
+				}
+				else
+				{
+					tgt.html(tag + ' &times; ' + LOL.counts[rootId][id][tag]);
+				}
+			}
+
+			// Add (lol * 3) indicators to the onelines
+			if ($(document).find('#' + 'oneline_' + tag + 's_' + id).length == 0)
+			{
+				tgt = $(document).find('#' + 'item_' + id);
+				if (tgt.length !== 0)
+				{
+					tgt = $(tgt).children('div.oneline');
+					if (tgt.length !== 0)
+					{
+						divOnelineTags = document.createElement('div');
+						divOnelineTags.id = 'oneline_' + tag + 's_' + id;
+						divOnelineTags.className = 'oneline_tags';
+						tgt.append(divOnelineTags);
+
+						// add the button
+						spanOnelineTag = document.createElement('span');
+						spanOnelineTag.id = 'oneline_' + tag + '_' + id;
+						spanOnelineTag.className = 'oneline_' + tag;
+						if (LOL.showCounts == 'short')
+						{
+							spanOnelineTag.appendChild(document.createTextNode(LOL.counts[rootId][id][tag]));
+						}
+						else
+						{
+							spanOnelineTag.appendChild(document.createTextNode(tag + ' × ' + LOL.counts[rootId][id][tag]));
+						}
+						divOnelineTags.appendChild(spanOnelineTag);
+					}
+				}
+			}
+			else
+			{
+				var span = $(document).find('#' + 'oneline_' + tag + '_' + id);
+				if (span.length !== 0)
+				{
+					if (LOL.showCounts == 'short')
+					{
+						span.text(LOL.counts[rootId][id][tag]);
+					}
+					else
+					{
+						span.text(tag + ' × ' + LOL.counts[rootId][id][tag]);
+					}
+				}
+			}
+		}
+	}
 }
 
 /**
@@ -150,27 +365,27 @@ TagExtension.prototype.handlePostResponse = function(returnProps) {
 	
 	//Otherwise, change the tag.
 	$("#" + returnProps.tag + returnProps.what)
-			.attr("href", ShacknewsExtension.LOL.URL + "?user=" + encodeURIComponent(returnProps.who))
+			.attr("href", LOL.URL + "?user=" + encodeURIComponent(returnProps.who))
 			.unbind("click")
 			.text("* " + returnProps.tag.toUpperCase() + " ' D *");
 			
 	//TODO: Add code to store tag+post so that reloads still respect the tags.
 }
 
-TagExtension.prototype.tagThread = function(tagName, parentNode) {
+TagExtension.tagThread = function(tagName, parentNode) {
 	parentNode = $(parentNode);
 	props = {
-		who: this.getUsername(),
+		who: ShacknewsExtension.getUsername(),
 		what: parentNode.attr("id").substr(5),
 		tag: tagName,
-		version: ShacknewsExtension.LOL.VERSION,
-		moderation: this.getModeration(parentNode)
+		version: LOL.VERSION,
+		moderation: TagExtension.getModeration(parentNode)
 	};
 	
 	safari.self.tab.dispatchMessage("shacknewsTagThread", props);
 }
 
-TagExtension.prototype.getModeration = function(parentNode) {
+TagExtension.getModeration = function(parentNode) {
 	var tags = ["fpmod_offtopic", "fpmod_nws", "fpmod_stupid", "fpmod_informative", "fpmod_political"];
 	var fullpost = parentNode.find(".fullpost:first");
 	for (var i = 0 in tags) {

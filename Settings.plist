@@ -104,5 +104,19 @@
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<false/>
+		<key>Key</key>
+		<string>enableNotifications</string>
+		<key>Title</key>
+		<string>Enable notifications</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>Key</key>
+		<string>notificationuid</string>
+	</dict>
 </array>
 </plist>

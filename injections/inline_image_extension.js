@@ -59,6 +59,41 @@ InlineImageExtension.prototype.loadImages = function(item)
     }
 }
 
+InlineImageExtension.isVideo = function(href)
+{
+    if (/https?\:\/\/(i\.)?imgur.com\/\w+\.gifv?$/.test(href))
+    {
+        return true;
+    }
+    else if (/https?\:\/\/(\w+\.)?gfycat\.com\/\w+(\.gif)?$/.test(href))
+    {
+        return true;
+    }
+    else if (/https?\:\/\/giphy\.com\/gifs\/\w+$/.test(href))
+    {
+        return true;
+    }
+
+    return false;
+}
+
+InlineImageExtension.isImgurGifWithWrongExtension = function(href)
+{
+    // detect imgur links that are actually gifs but are posted with the wrong extension (usually jpg)
+    if (/https?\:\/\/(i\.)?imgur.com\/\w+\.\w+$/.test(href))
+    {
+        // have to make a request to find out if the webm/mp4 is zippy/fat/giant
+        var xhr = new XMLHttpRequest();
+        xhr.open("HEAD", href, false);
+        xhr.send();
+
+        if (xhr.getResponseHeader("Content-Type") == "image/gif")
+            return true;
+    }
+
+    return false;
+};
+
 InlineImageExtension.prototype.isImage = function(href)
 {
     // some urls don't end in jpeg/png/etc so the normal test won't work
@@ -81,11 +116,6 @@ InlineImageExtension.prototype.isImage = function(href)
     else if (/https?\:\/\/www.dropbox.com\/s\/.+/.test(href))
     {
         return true;
-    }
-    else if (/http\:\/\/(i\.)?imgur.com\/\w+\.gifv?$/.test(href))
-    {
-        // imgur gif(v) is loaded by the video loader
-        return false;
     }
     else
     {
@@ -139,29 +169,101 @@ InlineImageExtension.getImageUrl = function(href)
     return href;
 }
 
-InlineImageExtension.toggleImage = function(e)
-{
+InlineImageExtension.toggleImage = function(e) {
     // left click only
-    if (e.button == 0)
-    {
+    if (e.button == 0) {
         var link = this;
-        if (link.childNodes[0].nodeName == "IMG")
-        {
+        if (link.childNodes[0].nodeName == "IMG") {
             // already showing image, collapse it
             link.innerHTML = link.href;
         }
-        else
-        {
-            // image not showing, show it
-            var image = document.createElement("img");
-            image.src = InlineImageExtension.getImageUrl(link.href);
-            image.className = "imageloader";
-            link.removeChild(link.firstChild);
-            link.appendChild(image);
+        else {
+            if (InlineImageExtension.isVideo(link.href) || InlineImageExtension.isImgurGifWithWrongExtension(link.href)) {
+                var video = InlineImageExtension.createVideo(link.href);
+                link.removeChild(link.firstChild);
+                link.appendChild(video);
+            }
+            else {
+                // image not showing, show it
+                var image = document.createElement("img");
+                image.src = InlineImageExtension.getImageUrl(link.href);
+                image.className = "imageloader";
+                link.removeChild(link.firstChild);
+                link.appendChild(image);
 
+            }
         }
         e.preventDefault();
     }
-}
+};
+
+
+InlineImageExtension.createVideo = function(href) {
+    if (href.match(/imgur/))
+        return InlineImageExtension.createGifv(href);
+    else if (href.match(/gfycat/))
+        return InlineImageExtension.createGfycat(href);
+    else if (href.match(/giphy/))
+        return InlineImageExtension.createGiphy(href);
+    return null;
+};
+
+InlineImageExtension.createGifv = function(href) {
+    var video_id;
+
+    if ((video_id = href.match(/i.imgur\.com\/(\w+)/i)))
+        video_id = video_id[1];
+    else
+        return null;
+
+    var v = document.createElement("video");
+    v.setAttribute("src", "//i.imgur.com/" + video_id + ".mp4");
+    v.setAttribute("autoplay", "");
+    v.setAttribute("loop", "");
+    v.setAttribute("muted", "");
+    return v;
+};
+
+InlineImageExtension.createGfycat = function(href) {
+    var video_id;
+    if ((m = /https?\:\/\/(\w+\.)?gfycat.com\/(\w+)(\.gif)?$/.exec(href)) != null)
+        video_id = m[2];
+
+    // have to make a request to find out if the webm/mp4 is zippy/fat/giant
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "//gfycat.com/cajax/get/" + video_id, false);
+    xhr.send();
+
+    var info = JSON.parse(xhr.responseText).gfyItem;
+
+    // use webm or mp4, whichever is smaller
+    var video_src = info.mp4Url;
+    if (info.mp4Size > info.webmSize)
+        video_src = info.webmUrl;
+
+    var v = document.createElement("video");
+    v.setAttribute("src", video_src);
+    v.setAttribute("autoplay", "");
+    v.setAttribute("loop", "");
+    v.setAttribute("muted", "");
+    v.setAttribute("width", info.width);
+    v.setAttribute("height", info.height);
+    return v;
+};
+
+InlineImageExtension.createGiphy = function(href) {
+    var video_id;
+    if ((m = /https?\:\/\/giphy\.com\/gifs\/(\w+)$/.exec(href)) != null)
+        video_id = m[1];
+
+    var video_src = "//media.giphy.com/media/" + video_id + "/giphy.mp4";
+
+    var v = document.createElement("video");
+    v.setAttribute("src", video_src);
+    v.setAttribute("autoplay", "");
+    v.setAttribute("loop", "");
+    v.setAttribute("muted", "");
+    return v;
+};
 
 var ext = new InlineImageExtension();

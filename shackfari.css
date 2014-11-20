@@ -13,8 +13,8 @@ a.lol_button.lol { color: #f80 !important; }
     width: 190px;
     height: 45px;
     position: absolute;
-    left: 180px;
-    top: 12px;
+    left: 140px;
+    top: 0px;
     text-indent: -9999px;
     color: #f00;
     background-image: url("images/lol.png");
@@ -73,8 +73,7 @@ img.imageloader { max-width: 600px; max-height: 600px; }
 #shack_comment_tags { float:right; padding:5px; margin-left: 10px; }
 #shack_comment_tags p { margin: 0.5em 0px 7px 0px; }
 #shack_comment_tags .jt_italics  { font-style: italic; }
-div.newcommentform { position: relative !important; width: inherit !important; min-width: 580px; }
-#postform { float: left; }
+div.newcommentform { width: 890px !important; }
 
 /* post preview */
 #previewArea {

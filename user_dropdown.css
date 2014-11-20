@@ -1,0 +1,102 @@
+#userDropdownTrigger { 
+  position: relative; 
+  background-image: url(http://cf.shacknews.com/images/sprite-commentslink.gif); 
+  background-position: -47px 4px;
+  background-size: auto; 
+}
+
+body.page-search #userDropdownTrigger, body.page-chatty #userDropdownTrigger { 
+  background-image: url(http://cf.shacknews.com/images/sprite-commentslink.gif); 
+}
+
+.userDropdown.hidden { 
+  display: none; 
+}
+
+span.author { 
+  position: relative !important; 
+}
+
+span.author .userdropdown, .userDropdown { 
+  background-color: #333333 !important; 
+  position: absolute !important; 
+  top: 1.5em; 
+  left: 0; 
+  height: auto !important; 
+  width: auto !important; 
+  background: #222 !important; 
+  z-index: 9999; 
+  text-align: left; 
+  border: 1px solid #333; 
+  -moz-box-shadow: 3px 3px 4px #000; 
+  font-weight: normal; 
+  font-size: 12px; 
+  padding: 0 !important; 
+}
+
+span.author .userdropdown { 
+  margin-top: 4px; 
+}
+
+span.author .userdropdown li, .userDropdown li { 
+  background-color: inherit; 
+  margin: 0; 
+  padding: 0 !important; 
+  background-image: none !important;  
+  display: block !important; 
+  width: 100% !important; 
+  line-height: 2.5em; 
+  border-bottom: 1px solid #333 !important; 
+  z-index: 9999; 
+}
+
+span.author .userDropdown li.userDropdown-separator , .userDropdown li.userDropdown-separator { 
+  border-bottom: 1px solid #666 !important; 
+}
+
+span.author .userDropdown li a, .userDropdown li a { 
+  display: block; 
+  width: auto !important; 
+  white-space: nowrap; 
+  padding: 4px 12px !important; 
+  margin: 0 !important; 
+  color: #ddd; 
+  font-weight: normal; 
+  font-size: 12px; 
+  border: 0 !important;  
+  border-radius: 0 !important; 
+  background-color: transparent !important; 
+}
+
+span.author .userDropdown li a { 
+  width: auto !important;
+}
+
+span.author .userDropdown li a:hover, .userDropdown li a:hover { 
+  color: #fff; 
+  background-color: #524A60 !important; 
+}
+
+#lolWorkingBar { 
+  position: fixed; 
+  left: 0; 
+  bottom: 0; 
+  height: 2.5em; 
+  width: 100%; 
+  line-height: 2.5em; 
+  background-color: #000; 
+  color: #fff; 
+  font-size: 150%; 
+  font-weight: bold; 
+  display: none; 
+  text-align: center; 
+}
+
+header .social li { 
+  width: calc(20% - 8px); 
+  margin-right: 5px;
+}
+
+body .in {
+  overflow: visible;
+}

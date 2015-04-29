@@ -385,13 +385,11 @@ $(function() {
 		// User name clicked (at the top of the banner?)
 		else if (t.id == 'userDropdownTrigger')
 		{
-			if (p.getElementsByTagName('A')[0] == t)
-			{
-				e.preventDefault();
-				e.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
 
-				displayUserMenu(t, getShackUsername(), 'You');
-			}
+            displayUserMenu(t, getShackUsername(), 'You');
+
 		}
 		
 		// OWN user name clicked as post author
@@ -431,13 +429,14 @@ $(function() {
     attachDropdownCss();
 
     // Add button to the header
-    var divSocial = getElementByClassName(document.getElementsByTagName('header')[0], 'ul' ,'social');
-    var liUser = document.createElement('li');
+    var divSocial = document.getElementsByClassName('header-buttons')[0];
     var aUser = document.createElement('a');
+    var aGradient = document.createElement('div');
     aUser.setAttribute('id', 'userDropdownTrigger');
-    liUser.appendChild(aUser);
+    aGradient.setAttribute('class', 'gradient');
+    aUser.appendChild(aGradient);
     if (divSocial !== null ) {
-      divSocial.appendChild(liUser);
+        divSocial.appendChild(aUser);
     }
 
 	// log execution time

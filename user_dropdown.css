@@ -1,13 +1,17 @@
 #userDropdownTrigger { 
-  position: relative; 
-  background-image: url(http://cf.shacknews.com/images/sprite-commentslink.gif); 
-  background-position: -47px 4px;
-  background-size: auto; 
+  width: auto; 
+  -webkit-user-select: none; 
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnIHN0eWxlPSJmaWxsOiAjZmZmZmZmIj4KCTxwYXRoIGQ9Ik0yNTguNzQ0IDI5My4yMTRjNzAuODk1IDAgMTI4LjM2NS01Ny40NzIgMTI4LjM2NS0xMjguMzY2YzAtNzAuODk2LTU3LjQ3My0xMjguMzY3LTEyOC4zNjUtMTI4LjM2NyBjLTcwLjg5NiAwLTEyOC4zNjggNTcuNDcyLTEyOC4zNjggMTI4LjM2N0MxMzAuMzc3IDIzNS43IDE4Ny44IDI5My4yIDI1OC43IDI5My4yMTR6Ii8+Cgk8cGF0aCBkPSJNMzcxLjUzMyAzMjIuNDMySDE0MC40NjdjLTc3LjU3NyAwLTE0MC40NjYgNjIuOTA5LTE0MC40NjYgMTQwLjQ4N3YxMi42MDFoNTEydi0xMi42MDEgQzUxMiAzODUuMyA0NDkuMSAzMjIuNCAzNzEuNSAzMjIuNDMyeiIvPgo8L2c+Cjwvc3ZnPgo=") !important; 
+  background-size: 50% !important; 
+  background-repeat: no-repeat !important; 
+  background-position: 50% !important;
 }
 
-body.page-search #userDropdownTrigger, body.page-chatty #userDropdownTrigger { 
-  background-image: url(http://cf.shacknews.com/images/sprite-commentslink.gif); 
+#userDropdownTrigger:hover {
+  background-color: #6b9eaa;
 }
+
+body .in, .base-level { overflow: visible !important; }
 
 .userDropdown.hidden { 
   display: none; 
@@ -66,6 +70,7 @@ span.author .userDropdown li a, .userDropdown li a {
   border: 0 !important;  
   border-radius: 0 !important; 
   background-color: transparent !important; 
+  float: none;
 }
 
 span.author .userDropdown li a { 
@@ -92,7 +97,7 @@ span.author .userDropdown li a:hover, .userDropdown li a:hover {
   text-align: center; 
 }
 
-header .social li { 
+header-buttons .social li { 
   width: calc(20% - 8px); 
   margin-right: 5px;
 }
